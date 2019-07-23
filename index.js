@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const passport = require('passport');
 // BodyParser Middleware
 const bodyParser = require('body-parser');
 const { SECURITY } = require('./constants');
@@ -25,25 +24,9 @@ app.use('/public', express.static(path.join(__dirname, 'build')));
 
 require('./models');
 
-// Passport init
-// app.use(passport.initialize());
-
-
-//   app.use(function (req, res,next) {
-//     var send = res.send;
-//     res.send = function (body) { // It might be a little tricky here, because send supports a variety of arguments, and you have to make sure you support all of them!
-//         // Do something with the body...
-//         console.log("Request Send",body)
-//         send.call(this, body);
-//     };
-//     next();
-// });
-
-// load passport strategies
-require('./config/passport')(passport);
 
 // Routes
-require('./routes/r-index')(app, passport);
+require('./routes/r-index')(app);
 
 // Nock for HTTP Request Test
 require('./lib/nockTest');
@@ -63,24 +46,6 @@ app.use(function (err, req, res, next) {
     res.status(err.statusCode || 500).json(err);
 });
 
-/*
-if (cluster.isMaster) {
-  console.log(`Master ${process.pid} is running number of core ${numCPUs}`);
-
-  // Fork workers.
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`worker ${worker.process.pid} died`);
-  });
-} else {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT);
-  console.log(`Server ${process.pid} started with ${PORT}`);
-}
-*/
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 console.log(`Server ${process.pid} started with ${PORT}`);
