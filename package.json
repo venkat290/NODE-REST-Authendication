@@ -1,14 +1,16 @@
 {
-  "name": "JWT-Authentication",
-  "version": "0.1",
-  "engines": {
-    "node": ">=10.0.0"
-  },
-  "description": "JWT Authentication With out Session",
+  "name": "nodejestunittest",
+  "version": "1.0.0",
+  "description": "Unit Test",
   "main": "index.js",
-  "author": "patracorp",
-  "license": "MIT",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
+    "jest": "^24.8.0",
     "nock": "^10.0.6"
   },
   "dependencies": {
@@ -27,5 +29,18 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venkat290/NODE-REST-Authendication.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "verbose": true
+  },
+  "bugs": {
+    "url": "https://github.com/venkat290/NODE-REST-Authendication/issues"
+  },
+  "homepage": "https://github.com/venkat290/NODE-REST-Authendication#readme"
 }

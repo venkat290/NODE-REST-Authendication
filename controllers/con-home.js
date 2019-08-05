@@ -1,6 +1,5 @@
 const  reqHlper = require('../lib/reqHelper');
-const fetch = require('node-fetch');
-
+const util= require('../util');
 exports.getItems = (req, res,next) =>{
   try{
     res.status(200).send({"success":true,"counter":[{"id":"1","value":"1"}]});
@@ -11,9 +10,8 @@ exports.getItems = (req, res,next) =>{
 };
 exports.getAPIItems = (req, res,next) =>{
   try{
-    fetch('https://api.github.com/repos/atom/atom/license')
-    .then(res => res.json())
-    .then(response => {console.log(response);
+    util.fetchAPI('https://reqres.in/api/users?page=1')
+    .then(response => {
       res.status(200).send(response);
     }).catch(error=>{
       console.log(error);
@@ -36,7 +34,6 @@ exports.notFound = (req, res) =>{
 exports.getUsers = (req, res,next) =>{
   try{
     reqHlper.getUsers().then((result)=>{
-      console.log(result);
       res.status(200).send({"success":true,"Users":result});
     }).catch((err)=>{
       next(err)
