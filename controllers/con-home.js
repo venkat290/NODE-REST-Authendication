@@ -1,48 +1,60 @@
-const  reqHlper = require('../lib/reqHelper');
-const util= require('../util');
-exports.getItems = (req, res,next) =>{
-  try{
-    res.status(200).send({"success":true,"counter":[{"id":"1","value":"1"}]});
-  }catch(Exceiption){
-   // throw Exceiption;
-   next(Exceiption);
-  }  
-};
-exports.getAPIItems = (req, res,next) =>{
-  try{
-    util.fetchAPI('https://reqres.in/api/users?page=1')
-    .then(response => {
-      res.status(200).send(response);
-    }).catch(error=>{
-      console.log(error);
-      res.status(500).send("Error");
-    });
-  }catch(Exceiption){
-   // throw Exceiption;
-   next(Exceiption);
-  }  
-};
+const  reqHelper = require('../lib/reqHelper');
+
 exports.notFound = (req, res) =>{
   try{
     console.log("404 Found")
-    res.status(404).send({});
-  }catch(Exceiption){
+    res.status(404).send();
+  }catch(err){
    // throw Exceiption;
-   next(Exceiption);
+   next(err.stack);
   }  
 };
-exports.getUsers = (req, res,next) =>{
+//how u r able to read req,res and how promise then function have parameter value
+exports.createUsers = (req, res) => {
   try{
-    reqHlper.getUsers().then((result)=>{
+    reqHelper.signUP({email:req.body.email,password:req.body.password}).then((result) => {
       res.status(200).send({"success":true,"Users":result});
     }).catch((err)=>{
-      next(err)
+      res.status(500).send(err);
     })
-  }catch(Exceiption){
-   // throw Exceiption;
-   next(Exceiption);
+  }catch(err){
+    res.status(500).send(err);
   }  
 };
-exports.sum=(a,b)=>{
-  return a+b;
-}
+
+exports.updateUser = (req, res) => {
+  try{
+    reqHelper.updateUser(req.body._id, {name:req.body.name}).then((result) => {
+      res.status(200).send({"success":true,"Users":result});
+    }).catch((err)=>{
+      res.status(404).send(err);
+    })
+  }catch(err){
+    res.status(500).send(err);
+  }  
+};
+
+exports.deleteUser = (req, res) => {
+  try{
+    reqHelper.deleteUser(req.body._id).then((result) => {
+      res.status(200).send({"success":true,"Users":result});
+    }).catch((err)=>{
+      res.status(404).send(err);
+    })
+  }catch(err){
+    res.status(500).send(err);
+  }  
+};
+
+exports.getUsers = (req, res) =>{
+  try {
+    const _id = req.query._id;
+    reqHelper.getUsers(_id).then((result)=>{
+      res.status(200).send({"success":true,"Users":result});
+    }).catch((err)=>{
+      res.status(500).send(err);
+    })
+  } catch(err){
+    res.status(500).send(err.stack);
+  }  
+};

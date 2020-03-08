@@ -7,28 +7,15 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest"
+    "start": "node -r dotenv/config index"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
-    "nock": "^10.0.6"
+    "dotenv": "^8.2.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cluster": "^0.7.7",
-    "cookie-parser": "^1.4.4",
-    "crypto": "^1.0.1",
     "express": "^4.16.3",
-    "fetch": "^1.1.0",
-    "method-override": "^3.0.0",
-    "moment": "^2.24.0",
-    "mongoose": "^5.6.0",
-    "node-fetch": "^2.6.0",
-    "os": "^0.1.1",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "path": "^0.12.7"
+    "mongoose": "^5.6.0"
   },
   "repository": {
     "type": "git",
@@ -36,9 +23,6 @@
   },
   "author": "",
   "license": "ISC",
-  "jest": {
-    "verbose": true
-  },
   "bugs": {
     "url": "https://github.com/venkat290/NODE-REST-Authendication/issues"
   },

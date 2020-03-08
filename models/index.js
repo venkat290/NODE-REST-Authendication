@@ -1,19 +1,20 @@
 let mongoose = require('mongoose');
-const server = 'venkat290113:venkat113@ds255889.mlab.com:55889'; // REPLACE WITH YOUR DB SERVER
-const database = 'node-react';      // REPLACE WITH YOUR DB NAME
-
+const server = process.env.DB_SERVER;
+const database = process.env.DATABASE;
+console.log(`mongodb://${server}/${database}`)
 class Database {
   constructor() {
     this._connect()
   }
   
-_connect() {    
-     mongoose.connect(`mongodb://${server}/${database}`)
+_connect() {
+     mongoose.connect(`mongodb://${server}/${database}`, { useNewUrlParser: true, useCreateIndex: true })
        .then(() => {
          mongoose.set('debug', true);
          console.log('Database connection successful')
        })
        .catch(err => {
+         console.log(err);
          console.error('Database connection error')
        })
   }
